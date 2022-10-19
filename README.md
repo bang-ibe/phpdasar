@@ -1,2 +1,2 @@
 # phpdasar
-nothong but my practice in php
+nothing but my practice in php
