@@ -1,33 +1,8 @@
 <?php
+require('functions.php');
+$mahasiswa = query("SELECT * FROM mahasiswa");
 
-$conn = mysqli_connect("localhost", "root", "", "phpdasar2"); // pass kosong di windows - mac "root", root default username
 
-// ambil data dari tabel mahasiswa / query data mahasiswa
-$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
-// var_dump($result);
-
-// ambil data mahasiswa dari object result
-// mysqli_fetch_row() mengembalikan array numerik
-// mysqli_fetch_row()
-// mysqli_fetch_array()
-// mysqli_fetch_object()
-
-// $mhs = mysqli_fetch_row($result);
-// // var_dump($mhs);
-// var_dump($mhs[1]);
-
-// $mhs = mysqli_fetch_assoc($result);
-// var_dump($mhs);
-// var_dump($mhs["Jurusan"]);
-// var_dump($mhs[4]); 
-
-// $mhs = mysqli_fetch_object($result);
-// var_dump($mhs-> nama);
-
-    // while ($mhs = mysqli_fetch_assoc($result)){
-        // var_dump($mhs);
-        // var_dump($mhs["Nama"]);
-    // }
 ?>
 
 
@@ -41,6 +16,10 @@ $result = mysqli_query($conn, "SELECT * FROM mahasiswa");
     <title>Halaman Admin</title>
 </head>
 <body>
+    <h1>Daftar Mahasiswa</h1>
+
+    <a href="tambah.php">Tambah Data Mahasiswa</a>
+    <br><br>
     <table border="1" cellpadding="10" cellspacing="0">
         <tr>
             <th>No.</th>
@@ -53,12 +32,12 @@ $result = mysqli_query($conn, "SELECT * FROM mahasiswa");
         </tr>
 
         <?php $i=1 ?>
-        <?php while($row = mysqli_fetch_assoc($result)) : ?>
+        <?php foreach($mahasiswa as $row) :?>
         <tr>
             <td><?= $i; ?> </td>
-            <td> 
+            <td>
                 <a href="">Ubah</a> |
-                <a href="">Hapus</a>
+                <a href="hapus.php?id=<?= $row["id"];?>">Hapus</a>
             </td>
             <td><img src="img/<?php echo $row["Gambar"] ?>" width="50" alt="adin"></td>
             <!-- <td>165090807111001</td>
@@ -71,7 +50,7 @@ $result = mysqli_query($conn, "SELECT * FROM mahasiswa");
             <td><?= $row["Jurusan"]; ?></td>
         </tr>
         <?php $i++;?>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     </table>
 </body>
 </html>
